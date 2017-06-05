@@ -33,8 +33,7 @@ public class ServicosDAO extends GenericDAO<Servicos> {
         try{
             this.sessao = HibernateUtil.getSessionFactory().openSession();
             servicos = this.sessao.createCriteria(Servicos.class)
-                    .add(Restrictions.ge("data", DataIni))
-                    .add(Restrictions.le("data", DataFim)).list();
+                    .add(Restrictions.between("data", DataIni, DataFim)).list();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }finally {
@@ -42,18 +41,23 @@ public class ServicosDAO extends GenericDAO<Servicos> {
         }
         return servicos;
     }
-    
-    public List<Servicos> listar(JComboBox<Object> fun) {
-         List<Servicos> servicos = null;
-        try{
-            this.sessao = HibernateUtil.getSessionFactory().openSession();
-            servicos = this.sessao.createCriteria(Servicos.class)
-                    .add(Restrictions.eq("Funcionario", fun)).list();                  
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }finally {
+      public List<Servicos> listar(String Campo, Object value){
+          List<Servicos> servico = null;
+          try {
+              this.sessao = HibernateUtil.getSessionFactory().openSession();
+            servico = this.sessao.createCriteria(Servicos.class).add(Restrictions.eq(Campo, value)).list();
+          } catch (Exception e) {
+              System.out.println(e.getMessage());
+              return null;
+          }finally {
             this.sessao.close();
         }
-        return servicos;    }
-    
+        return servico;
+    }
 }
+          
+      
+
+
+    
+   

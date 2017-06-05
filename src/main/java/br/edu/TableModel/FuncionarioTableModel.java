@@ -75,5 +75,9 @@ public class FuncionarioTableModel extends AbstractTableModel {
         }
         return super.getColumnName(column);
     }
+
+    public Funcionario getValueAt(int selectedRow) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

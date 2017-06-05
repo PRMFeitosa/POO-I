@@ -33,8 +33,7 @@ public class DespesasDAO extends GenericDAO<Despesas> {
         try{
             this.sessao = HibernateUtil.getSessionFactory().openSession();
             despesas = this.sessao.createCriteria(Despesas.class)
-                    .add(Restrictions.ge("data", DataIni))
-                    .add(Restrictions.le("data", DataFim)).list();
+                    .add(Restrictions.between("data", DataIni, DataFim)).list();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }finally {
